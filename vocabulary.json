@@ -30,7 +30,7 @@
 	{
 		"eng": "sprain",
 		"transcription": "[spreɪn]",
-		"ukr": "розтягнення зв'язок",
+		"ukr": "розтягнення",
 		"category": "Injuries",
 		"img": "images/injuries/sprain.jpg"
 	},
@@ -40,6 +40,20 @@
 		"ukr": "подряпина",
 		"category": "Injuries",
 		"img": "images/injuries/scratch.jpg"
+	},
+	{
+		"eng": "bruise",
+		"transcription": "[bruːz]",
+		"ukr": "синець",
+		"category": "Injuries",
+		"img": "images/injuries/bruise.jpg"
+	},
+	{
+		"eng": "a broken leg",
+		"transcription": "[ə ˌbrəʊkən ˈleɡ]",
+		"ukr": "зламана нога",
+		"category": "Injuries",
+		"img": "images/injuries/a_broken_leg.jpg"
 	},
 	{
 		"eng": "first aid",
@@ -103,5 +117,40 @@
 		"ukr": "лід",
 		"category": "FirstAid",
 		"img": "images/first_aid/ice.jpg"
+	},
+	{
+		"eng": "emergency",
+		"transcription": "[ɪˈmɜːdʒənsi]",
+		"ukr": "надзвичайна ситуація / екстрена служба",
+		"category": "Emergency",
+		"img": "images/emergency/emergency.jpg"
+	},
+	{
+		"eng": "nurse",
+		"transcription": "[nɜːs]",
+		"ukr": "медсестра / медбрат",
+		"category": "Emergency",
+		"img": "images/emergency/nurse.jpg"
+	},
+	{
+		"eng": "patient",
+		"transcription": "[ˈpeɪʃnt]",
+		"ukr": "пацієнт",
+		"category": "Emergency",
+		"img": "images/emergency/patient.jpg"
+	},
+	{
+		"eng": "ambulance",
+		"transcription": "[ˈæmbjələns]",
+		"ukr": "швидка допомога (автомобіль)",
+		"category": "Emergency",
+		"img": "images/emergency/ambulance.jpg"
+	},
+	{
+		"eng": "fire engine",
+		"transcription": "[ˈfaɪər ˌendʒɪn]",
+		"ukr": "пожежна машина",
+		"category": "Emergency",
+		"img": "images/emergency/fire_engine.jpg"
 	}
 ]
