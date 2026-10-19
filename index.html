@@ -261,72 +261,7 @@
 	</div>
 
 	<script>
-		const vocabulary = [
-			// --- ТЕМА: ТРАВМИ (Injuries) ---
-			{
-				eng: "injuries", transcription: "[ˈɪndʒəriz]", ukr: "травми", category: "Injuries",
-				img: "images/injuries/injuries.jpg"
-			},
-			{
-				eng: "burn", transcription: "[bɜːn]", ukr: "опік", category: "Injuries",
-				img: "images/injuries/burn.jpg"
-			},
-			{
-				eng: "sunburn", transcription: "[ˈsʌnbɜːn]", ukr: "сонячний опік", category: "Injuries",
-				img: "images/injuries/sunburn.jpg"
-			},
-			{
-				eng: "cut", transcription: "[kʌt]", ukr: "поріз", category: "Injuries",
-				img: "images/injuries/cut.jpg"
-			},
-			{
-				eng: "sprain", transcription: "[spreɪn]", ukr: "розтягнення зв'язок", category: "Injuries",
-				img: "images/injuries/sprain.jpg"
-			},
-			{
-				eng: "scratch", transcription: "[skrætʃ]", ukr: "подряпина", category: "Injuries",
-				img: "images/injuries/scratch.jpg"
-			},
-
-			// --- ТЕМА: ПЕРША ДОПОМОГА (First Aid) ---
-			{
-				eng: "first aid", transcription: "[ˌfɜːst ˈeɪd]", ukr: "перша допомога", category: "FirstAid",
-				img: "images/first_aid/first_aid.jpg"
-			},
-			{
-				eng: "scissors", transcription: "[ˈsɪzəz]", ukr: "ножиці", category: "FirstAid",
-				img: "images/first_aid/scissors.jpg"
-			},
-			{
-				eng: "cotton wool", transcription: "[ˈkɒtn wʊl]", ukr: "вата", category: "FirstAid",
-				img: "images/first_aid/cotton_wool.jpg"
-			},
-			{
-				eng: "bandage", transcription: "[ˈbændɪdʒ]", ukr: "бинт / бандаж / пов'язка", category: "FirstAid",
-				img: "images/first_aid/bandage.jpg"
-			},
-			{
-				eng: "elastic bandage", transcription: "[ɪˈlæstɪk ˈbændɪdʒ]", ukr: "еластичний бинт", category: "FirstAid",
-				img: "images/first_aid/elastic_bandage.jpg"
-			},
-			{
-				eng: "plaster", transcription: "[ˈplɑːstə]", ukr: "пластир", category: "FirstAid",
-				img: "images/first_aid/plaster.jpg"
-			},
-			{
-				eng: "antiseptic cream", transcription: "[ˌæntiˈseptɪk kriːm]", ukr: "антисептичний крем", category: "FirstAid",
-				img: "images/first_aid/antiseptic_cream.jpg"
-			},
-			{
-				eng: "medicine", transcription: "[ˈmedsn]", ukr: "ліки / ьедикаменти", category: "FirstAid",
-				img: "images/first_aid/medicine.jpg"
-			},
-			{
-				eng: "ice", transcription: "[aɪs]", ukr: "лід", category: "FirstAid",
-				img: "images/first_aid/ice.jpg"
-			}
-		];
-
+		let vocabulary = []; // Спочатку масив порожній, ми завантажимо його з JSON-файлу
 		let filteredVocabulary = [];
 		let currentIndex = 0;
 
@@ -340,6 +275,27 @@
 		const nextBtn = document.getElementById('next-btn');
 		const categorySelect = document.getElementById('category-select');
 
+		// НОВА ФУНКЦІЯ: Робимо запит до вашого окремого файлу vocabulary.json
+		async function loadVocabulary() {
+			try {
+				// Запитуємо файл, який лежить на сервері (або в репозиторії GitHub) поруч із index.html
+				const response = await fetch('vocabulary.json');
+
+				if (!response.ok) {
+					throw new Error(`Сервер повернув помилку: ${response.status}`);
+				}
+
+				// Перетворюємо отриманий текст на список об'єктів JavaScript
+				vocabulary = await response.json();
+
+				// Після успішного завантаження активуємо першу категорію слів
+				changeCategory();
+			} catch (error) {
+				console.error("Помилка завантаження слів:", error);
+				alert("Не вдалося завантажити список слів. Перевірте, чи файл vocabulary.json завантажений на сервер поруч із індексом.");
+			}
+		}
+
 		function changeCategory() {
 			const selectedTheme = categorySelect.value;
 			filteredVocabulary = vocabulary.filter(item => item.category === selectedTheme);
@@ -351,6 +307,16 @@
 			cardElement.classList.remove('flipped');
 
 			setTimeout(() => {
+				// Захист: якщо дані ще не завантажилися або категорія пуста
+				if (!filteredVocabulary || filteredVocabulary.length === 0) {
+					engElement.textContent = "Завантаження...";
+					transcriptionElement.textContent = "";
+					ukrElement.textContent = "";
+					imgElement.src = "";
+					counterElement.textContent = "Картка 0 з 0";
+					return;
+				}
+
 				const currentItem = filteredVocabulary[currentIndex];
 				engElement.textContent = currentItem.eng;
 				transcriptionElement.textContent = currentItem.transcription;
@@ -359,7 +325,7 @@
 				imgElement.alt = currentItem.eng;
 				counterElement.textContent = `Картка ${currentIndex + 1} з ${filteredVocabulary.length}`;
 
-				// Кнопки тепер завжди активні, щоб можна було гортати по колу
+				// Кнопки завжди активні для гортання по колу
 				prevBtn.disabled = false;
 				nextBtn.disabled = false;
 			}, 150);
@@ -372,6 +338,8 @@
 
 		function playAudio(event) {
 			event.stopPropagation();
+			if (!filteredVocabulary || filteredVocabulary.length === 0) return;
+
 			const word = filteredVocabulary[currentIndex].eng;
 
 			if ('speechSynthesis' in window) {
@@ -384,6 +352,8 @@
 		}
 
 		function nextCard() {
+			if (!filteredVocabulary || filteredVocabulary.length === 0) return;
+
 			if (currentIndex < filteredVocabulary.length - 1) {
 				currentIndex++;
 			} else {
@@ -393,6 +363,8 @@
 		}
 
 		function prevCard() {
+			if (!filteredVocabulary || filteredVocabulary.length === 0) return;
+
 			if (currentIndex > 0) {
 				currentIndex--;
 			} else {
@@ -401,8 +373,10 @@
 			updateCard();
 		}
 
-		changeCategory();
+		// ЗАПУСК ПРОГРАМИ: Завантажуємо зовнішній файл замість статичного виклику
+		loadVocabulary();
 	</script>
+
 </body>
 
 </html>

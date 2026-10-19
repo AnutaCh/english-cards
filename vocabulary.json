@@ -1,0 +1,107 @@
+[
+	{
+		"eng": "injuries",
+		"transcription": "[ˈɪndʒəriz]",
+		"ukr": "травми",
+		"category": "Injuries",
+		"img": "images/injuries/injuries.jpg"
+	},
+	{
+		"eng": "burn",
+		"transcription": "[bɜːn]",
+		"ukr": "опік",
+		"category": "Injuries",
+		"img": "images/injuries/burn.jpg"
+	},
+	{
+		"eng": "sunburn",
+		"transcription": "[ˈsʌnbɜːn]",
+		"ukr": "сонячний опік",
+		"category": "Injuries",
+		"img": "images/injuries/sunburn.jpg"
+	},
+	{
+		"eng": "cut",
+		"transcription": "[kʌt]",
+		"ukr": "поріз",
+		"category": "Injuries",
+		"img": "images/injuries/cut.jpg"
+	},
+	{
+		"eng": "sprain",
+		"transcription": "[spreɪn]",
+		"ukr": "розтягнення зв'язок",
+		"category": "Injuries",
+		"img": "images/injuries/sprain.jpg"
+	},
+	{
+		"eng": "scratch",
+		"transcription": "[skrætʃ]",
+		"ukr": "подряпина",
+		"category": "Injuries",
+		"img": "images/injuries/scratch.jpg"
+	},
+	{
+		"eng": "first aid",
+		"transcription": "[ˌfɜːst ˈeɪd]",
+		"ukr": "перша допомога",
+		"category": "FirstAid",
+		"img": "images/first_aid/first_aid.jpg"
+	},
+	{
+		"eng": "scissors",
+		"transcription": "[ˈsɪzəz]",
+		"ukr": "ножиці",
+		"category": "FirstAid",
+		"img": "images/first_aid/scissors.jpg"
+	},
+	{
+		"eng": "cotton wool",
+		"transcription": "[ˈkɒtn wʊl]",
+		"ukr": "вата",
+		"category": "FirstAid",
+		"img": "images/first_aid/cotton_wool.jpg"
+	},
+	{
+		"eng": "bandage",
+		"transcription": "[ˈbændɪdʒ]",
+		"ukr": "бинт / бандаж / пов'язка",
+		"category": "FirstAid",
+		"img": "images/first_aid/bandage.jpg"
+	},
+	{
+		"eng": "elastic bandage",
+		"transcription": "[ɪˈlæstɪk ˈbændɪdʒ]",
+		"ukr": "еластичний бинт",
+		"category": "FirstAid",
+		"img": "images/first_aid/elastic_bandage.jpg"
+	},
+	{
+		"eng": "plaster",
+		"transcription": "[ˈplɑːstə]",
+		"ukr": "пластир",
+		"category": "FirstAid",
+		"img": "images/first_aid/plaster.jpg"
+	},
+	{
+		"eng": "antiseptic cream",
+		"transcription": "[ˌæntiˈseptɪk kriːm]",
+		"ukr": "антисептичний крем",
+		"category": "FirstAid",
+		"img": "images/first_aid/antiseptic_cream.jpg"
+	},
+	{
+		"eng": "medicine",
+		"transcription": "[ˈmedsn]",
+		"ukr": "ліки / медикаменти",
+		"category": "FirstAid",
+		"img": "images/first_aid/medicine.jpg"
+	},
+	{
+		"eng": "ice",
+		"transcription": "[aɪs]",
+		"ukr": "лід",
+		"category": "FirstAid",
+		"img": "images/first_aid/ice.jpg"
+	}
+]
