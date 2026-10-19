@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>English Flashcards - Транскрипція</title>
+	<style>
+		:root {
+			--primary-color: #4cc9f0;
+			--secondary-color: #4895ef;
+			--accent-color: #f72585;
+			--bg-color: #f8f9fa;
+			--card-front-bg: #ffffff;
+			--card-back-bg: #7209b7;
+		}
+
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background-color: var(--bg-color);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			min-height: 100vh;
+			margin: 0;
+			padding: 20px;
+		}
+
+		h1 {
+			color: #3f37c9;
+			margin-bottom: 10px;
+			font-size: 1.8rem;
+			text-align: center;
+		}
+
+		.category-select {
+			font-size: 1rem;
+			padding: 10px 20px;
+			border-radius: 25px;
+			border: 2px solid var(--secondary-color);
+			background-color: white;
+			color: #3f37c9;
+			font-weight: bold;
+			cursor: pointer;
+			outline: none;
+			margin-bottom: 15px;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+		}
+
+		.counter {
+			font-size: 1.1rem;
+			color: #6c757d;
+			margin-bottom: 15px;
+		}
+
+		.flashcard-container {
+			width: 340px;
+			height: 400px;
+			perspective: 1000px;
+			cursor: pointer;
+		}
+
+		.flashcard {
+			width: 100%;
+			height: 100%;
+			position: relative;
+			transform-style: preserve-3d;
+			transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+			border-radius: 20px;
+		}
+
+		.flashcard.flipped {
+			transform: rotateY(180deg);
+		}
+
+		.card-face {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			backface-visibility: hidden;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: space-between;
+			border-radius: 20px;
+			padding: 25px;
+			box-sizing: border-box;
+		}
+
+		.card-front {
+			background-color: var(--card-front-bg);
+			border: 3px solid var(--primary-color);
+			color: #333;
+		}
+
+		.image-container {
+			width: 100%;
+			height: 160px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			border-radius: 12px;
+			background-color: #f1f3f5;
+		}
+
+		.image-container img {
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: contain;
+		}
+
+		.word-section {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 100%;
+			margin-top: 10px;
+		}
+
+		.word-wrapper {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+
+		.card-front .word {
+			font-size: 2.2rem;
+			font-weight: bold;
+			color: #2b2d42;
+		}
+
+		.transcription {
+			font-size: 1.2rem;
+			color: #ef476f;
+			font-family: 'Lucida Sans Unicode', 'Arial', sans-serif;
+			margin-top: 4px;
+			font-weight: 500;
+		}
+
+		.audio-btn {
+			background: #e0f2fe;
+			border: none;
+			border-radius: 50%;
+			width: 42px;
+			height: 42px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			transition: transform 0.2s, background-color 0.2s;
+			padding: 0;
+		}
+
+		.audio-btn:hover {
+			background-color: #bae6fd;
+			transform: scale(1.08);
+		}
+
+		.audio-btn svg {
+			width: 20px;
+			height: 20px;
+			fill: #0284c7;
+		}
+
+		.card-front .hint {
+			font-size: 0.8rem;
+			color: #a2a2a2;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			margin-top: auto;
+		}
+
+		.card-back {
+			background-color: var(--card-back-bg);
+			color: white;
+			transform: rotateY(180deg);
+			justify-content: center;
+		}
+
+		.card-back .translation {
+			font-size: 2.3rem;
+			font-weight: 600;
+			text-align: center;
+		}
+
+		.controls {
+			margin-top: 25px;
+			display: flex;
+			gap: 15px;
+		}
+
+		button {
+			background-color: var(--secondary-color);
+			color: white;
+			border: none;
+			padding: 12px 30px;
+			font-size: 1rem;
+			border-radius: 50px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			box-shadow: 0 4px 15px rgba(72, 149, 239, 0.3);
+		}
+
+		button:hover {
+			background-color: #3f37c9;
+			transform: translateY(-2px);
+		}
+
+		button:disabled {
+			background-color: #ced4da;
+			box-shadow: none;
+			cursor: not-allowed;
+			transform: none;
+		}
+	</style>
+</head>
+
+<body>
+
+	<h1>Вивчення англійських слів</h1>
+
+	<select class="category-select" id="category-select" onchange="changeCategory()">
+		<option value="Injuries">Тема: Травми (Injuries)</option>
+		<option value="FirstAid">Тема: Перша допомога (First Aid)</option>
+	</select>
+
+	<div class="counter" id="counter">Картка 1 з 3</div>
+
+	<div class="flashcard-container" onclick="handleCardClick(event)">
+		<div class="flashcard" id="flashcard">
+			<div class="card-face card-front">
+				<div class="image-container">
+					<img id="card-img" src="" alt="Word image">
+				</div>
+				<div class="word-section">
+					<div class="word-wrapper">
+						<div class="word" id="word-eng">Word</div>
+						<button class="audio-btn" onclick="playAudio(event)" title="Слухати британську вимову">
+							<svg viewBox="0 0 24 24">
+								<path
+									d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+							</svg>
+						</button>
+					</div>
+					<div class="transcription" id="word-transcription">[wɜːd]</div>
+				</div>
+				<div class="hint">Натисніть, щоб перевернути</div>
+			</div>
+			<div class="card-face card-back">
+				<div class="translation" id="word-ukr">Переклад</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="controls">
+		<button id="prev-btn" onclick="prevCard()" disabled>Назад</button>
+		<button id="next-btn" onclick="nextCard()">Вперед</button>
+	</div>
+
+	<script>
+		const vocabulary = [
+			// --- ТЕМА: ТРАВМИ (Injuries) ---
+			{
+				eng: "injuries", transcription: "[ˈɪndʒəriz]", ukr: "травми", category: "Injuries",
+				img: "images/injuries/injuries.jpg"
+			},
+			{
+				eng: "burn", transcription: "[bɜːn]", ukr: "опік", category: "Injuries",
+				img: "images/injuries/burn.jpg"
+			},
+			{
+				eng: "sunburn", transcription: "[ˈsʌnbɜːn]", ukr: "сонячний опік", category: "Injuries",
+				img: "images/injuries/sunburn.jpg"
+			},
+			{
+				eng: "cut", transcription: "[kʌt]", ukr: "поріз", category: "Injuries",
+				img: "images/injuries/cut.jpg"
+			},
+			{
+				eng: "sprain", transcription: "[spreɪn]", ukr: "розтягнення зв'язок", category: "Injuries",
+				img: "images/injuries/sprain.jpg"
+			},
+			{
+				eng: "scratch", transcription: "[skrætʃ]", ukr: "подряпина", category: "Injuries",
+				img: "images/injuries/scratch.jpg"
+			},
+
+			// --- ТЕМА: ПЕРША ДОПОМОГА (First Aid) ---
+			{
+				eng: "first aid", transcription: "[ˌfɜːst ˈeɪd]", ukr: "перша допомога", category: "FirstAid",
+				img: "images/first_aid/first_aid.jpg"
+			},
+			{
+				eng: "scissors", transcription: "[ˈsɪzəz]", ukr: "ножиці", category: "FirstAid",
+				img: "images/first_aid/scissors.jpg"
+			},
+			{
+				eng: "cotton wool", transcription: "[ˈkɒtn wʊl]", ukr: "вата", category: "FirstAid",
+				img: "images/first_aid/cotton_wool.jpg"
+			},
+			{
+				eng: "bandage", transcription: "[ˈbændɪdʒ]", ukr: "бинт / бандаж / пов'язка", category: "FirstAid",
+				img: "images/first_aid/bandage.jpg"
+			},
+			{
+				eng: "elastic bandage", transcription: "[ɪˈlæstɪk ˈbændɪdʒ]", ukr: "еластичний бинт", category: "FirstAid",
+				img: "images/first_aid/elastic_bandage.jpg"
+			},
+			{
+				eng: "plaster", transcription: "[ˈplɑːstə]", ukr: "пластир", category: "FirstAid",
+				img: "images/first_aid/plaster.jpg"
+			},
+			{
+				eng: "antiseptic cream", transcription: "[ˌæntiˈseptɪk kriːm]", ukr: "антисептичний крем", category: "FirstAid",
+				img: "images/first_aid/antiseptic_cream.jpg"
+			},
+			{
+				eng: "medicine", transcription: "[ˈmedsn]", ukr: "ліки / ьедикаменти", category: "FirstAid",
+				img: "images/first_aid/medicine.jpg"
+			},
+			{
+				eng: "ice", transcription: "[aɪs]", ukr: "лід", category: "FirstAid",
+				img: "images/first_aid/ice.jpg"
+			}
+		];
+
+		let filteredVocabulary = [];
+		let currentIndex = 0;
+
+		const cardElement = document.getElementById('flashcard');
+		const engElement = document.getElementById('word-eng');
+		const transcriptionElement = document.getElementById('word-transcription');
+		const ukrElement = document.getElementById('word-ukr');
+		const imgElement = document.getElementById('card-img');
+		const counterElement = document.getElementById('counter');
+		const prevBtn = document.getElementById('prev-btn');
+		const nextBtn = document.getElementById('next-btn');
+		const categorySelect = document.getElementById('category-select');
+
+		function changeCategory() {
+			const selectedTheme = categorySelect.value;
+			filteredVocabulary = vocabulary.filter(item => item.category === selectedTheme);
+			currentIndex = 0;
+			updateCard();
+		}
+
+		function updateCard() {
+			cardElement.classList.remove('flipped');
+
+			setTimeout(() => {
+				const currentItem = filteredVocabulary[currentIndex];
+				engElement.textContent = currentItem.eng;
+				transcriptionElement.textContent = currentItem.transcription;
+				ukrElement.textContent = currentItem.ukr;
+				imgElement.src = currentItem.img;
+				imgElement.alt = currentItem.eng;
+				counterElement.textContent = `Картка ${currentIndex + 1} з ${filteredVocabulary.length}`;
+
+				// Кнопки тепер завжди активні, щоб можна було гортати по колу
+				prevBtn.disabled = false;
+				nextBtn.disabled = false;
+			}, 150);
+		}
+
+		function handleCardClick(event) {
+			if (event.target.closest('.audio-btn')) return;
+			cardElement.classList.toggle('flipped');
+		}
+
+		function playAudio(event) {
+			event.stopPropagation();
+			const word = filteredVocabulary[currentIndex].eng;
+
+			if ('speechSynthesis' in window) {
+				window.speechSynthesis.cancel();
+				const utterance = new SpeechSynthesisUtterance(word);
+				utterance.lang = 'en-GB';
+				utterance.rate = 0.9;
+				window.speechSynthesis.speak(utterance);
+			}
+		}
+
+		function nextCard() {
+			if (currentIndex < filteredVocabulary.length - 1) {
+				currentIndex++;
+			} else {
+				currentIndex = 0; // Перехід з останньої картки на першу
+			}
+			updateCard();
+		}
+
+		function prevCard() {
+			if (currentIndex > 0) {
+				currentIndex--;
+			} else {
+				currentIndex = filteredVocabulary.length - 1; // Перехід з першої картки на останню
+			}
+			updateCard();
+		}
+
+		changeCategory();
+	</script>
+</body>
+
+</html>
