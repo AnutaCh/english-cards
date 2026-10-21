@@ -152,5 +152,68 @@
 		"ukr": "пожежна машина",
 		"category": "Emergency",
 		"img": "images/emergency/fire_engine.jpg"
+	},
+	{
+		"eng": "illnesses",
+		"transcription": "[ˈɪlnəsɪz]",
+		"ukr": "хвороби",
+		"category": "Illnesses",
+		"img": "images/illnesses/illnesses.jpg"
+	},
+	{
+		"eng": "to have a temperature",
+		"transcription": "[tə hæv ə ˈtemprətʃə(r)]",
+		"ukr": "мати температуру",
+		"category": "Illnesses",
+		"img": "images/illnesses/to-have-a-temperature.jpg"
+	},
+	{
+		"eng": "to have a cough",
+		"transcription": "[tə hæv ə kɒf]",
+		"ukr": "мати кашель",
+		"category": "Illnesses",
+		"img": "images/illnesses/to-have-a-cough.jpg"
+	},
+	{
+		"eng": "an earache",
+		"transcription": "[ən ˈɪəreɪk]",
+		"ukr": "біль у вусі",
+		"category": "Illnesses",
+		"img": "images/illnesses/an-earache.jpg"
+	},
+	{
+		"eng": "a toothache",
+		"transcription": "[ə ˈtuːθeɪk]",
+		"ukr": "зубний біль",
+		"category": "Illnesses",
+		"img": "images/illnesses/a-toothache.jpg"
+	},
+	{
+		"eng": "to have flu",
+		"transcription": "[tə hæv fluː]",
+		"ukr": "хворіти на грип",
+		"category": "Illnesses",
+		"img": "images/illnesses/to-have-flu.jpg"
+	},
+	{
+		"eng": "a sore throat",
+		"transcription": "[ə sɔː(r) θrəʊt]",
+		"ukr": "біль у горлі",
+		"category": "Illnesses",
+		"img": "images/illnesses/a-sore-throat.jpg"
+	},
+	{
+		"eng": "a stomach ache",
+		"transcription": "[ə ˈstʌmək eɪk]",
+		"ukr": "біль у животі",
+		"category": "Illnesses",
+		"img": "images/illnesses/a-stomach-ache.jpg"
+	},
+	{
+		"eng": "a headache",
+		"transcription": "[ə ˈhedeɪk]",
+		"ukr": "головний біль",
+		"category": "Illnesses",
+		"img": "images/illnesses/a-headache.jpg"
 	}
 ]
